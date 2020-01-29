@@ -332,7 +332,7 @@ In this unit you will add a Simulated Temperature Sensor as a custom IoT Edge Mo
     ```cmd/sh
     demouser@AZ-220-VM-EDGE:~$ iotedge list
     NAME             STATUS           DESCRIPTION      CONFIG
-    tempsensor       running          Up 34 seconds    asaedgedockerhubtest/asa-edge-test-module:simulated-temperature-sensor
+    tempSensor       running          Up 34 seconds    asaedgedockerhubtest/asa-edge-test-module:simulated-temperature-sensor
     edgeAgent        running          Up 26 minutes    mcr.microsoft.com/azureiotedge-agent:1.0
     edgeHub          running          Up a minute      mcr.microsoft.com/azureiotedge-hub:1.0
     ```
@@ -340,7 +340,7 @@ In this unit you will add a Simulated Temperature Sensor as a custom IoT Edge Mo
 1. The `iotedge logs` command can be used to view the module logs for the `tempsensor` module. Run the following command to view the module logs:
 
     ```cmd/sh
-    iotedge logs tempsensor
+    iotedge logs tempSensor
     ```
 
     The output of the command looks similar to the following:
@@ -355,7 +355,7 @@ In this unit you will add a Simulated Temperature Sensor as a custom IoT Edge Mo
 1. The Simulated Temperature Sensor Module will stop after it sends 500 messages. It can be restarted by running the following command:
 
     ```cmd/sh
-    iotedge restart tempsensor
+    iotedge restart tempSensor
     ```
 
     You do not need to restart the module now, but if you find it stops sending telemetry later, then go back into the **Azure Cloud Shell** and run this command to reset it. Once reset, the module will start sending telemetry again.
