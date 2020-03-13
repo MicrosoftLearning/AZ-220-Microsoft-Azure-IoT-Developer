@@ -12,6 +12,49 @@ Contoso's warehouse moves inventory that is ready to be packed for delivery on a
 
 In order to make sure the correct amount of products have been packed, you will add a simple module to count objects detected on the belt by another object detection module (simulated) on the same IoT Edge device. We will show how to create a custom module that does object counting.
 
+## What is a Custom Module
+
+Azure IoT Edge enables you to deploy code to your IoT Edge devices from the cloud. The IoT Edge platform works with the cloud to deploy IoT Edge modules. IoT Edge modules are executable packages implemented as containers.
+
+IoT Edge modules are the smallest computation units managed by IoT Edge. Using IoT Edge modules, you can analyze data on devices instead of the cloud. By moving parts of your workload to the edge, your devices can spend less time sending messages to the cloud and react more quickly to events. 
+
+## Terminology
+
+### Resource Groups
+
+When you run the set up script all th resources required for the lab will be placed in a resource group named AZ220_RG.
+
+Resource groups are a way of logically grouping related resources. Often you would group resources by solution, but you could group by geography, or maybe by business unit for billing purposes.
+
+## IoT Hub
+
+IoT Hub is a managed service, hosted in the cloud, that acts as a central message hub for bi-directional communication between your IoT application and the devices it manages.
+
+## IoT Edge runtime environment
+
+The IoT Edge runtime is a collection of programs that turn a device into an IoT Edge device. Collectively, the IoT Edge runtime components enable IoT Edge devices to receive code to run at the edge and communicate the results.
+
+The IoT Edge runtime is responsible for the following functions on IoT Edge devices:
+
+* Installing and updating workloads on the device.
+* Maintaining Azure IoT Edge security standards on the device.
+* Ensuring that IoT Edge modules are always running.
+* Reporting module health to the cloud for remote monitoring.
+* Managing communication between downstream devices and IoT Edge devices.
+* Managing communication between modules on the IoT Edge device.
+* Managing communication between the IoT Edge device and the cloud.
+
+## IoT Edge hub
+
+It acts as a local proxy for IoT Hub by exposing the same protocol endpoints as IoT Hub. This consistency means that clients (whether devices or modules) can connect to the IoT Edge runtime just as they would to IoT Hub.
+
+## IoT Edge agent
+
+ It is responsible for instantiating modules, ensuring that they continue to run, and reporting the status of the modules back to IoT Hub.
+
+
+## Prerequisites
+
 This lab includes the following prerequisites for the development machine (lab host environment - VM or PC):
 
 * Visual Studio Code with the following extensions installed:
@@ -149,6 +192,10 @@ Once the script has completed, you will be ready to continue with the lab.
 
 ### Exercise 2: Install Azure IoT EdgeHub Dev Tool
 
+The Azure IoT EdgeHub Dev Tool provide a local development experience with a simulator for creating, developing, testing, running, and debugging Azure IoT Edge modules and solutions. 
+
+The Azure IoT EdgeHub Dev Tool streamlines the development process by reducing the time taken to build, deploy, and debug your Azure IoT Edge modules.  
+
 In this exercise, you will will install the Azure IoT EdgeHub Dev Tool.
 
 1. To develop Azure IoT Edge modules with C#, you will need to install the Azure IoT EdgeHub Dev Tool. This tool required Python 2.7, 3.6, or 3.7 to be installed.
@@ -183,6 +230,8 @@ Now we have configured the python environment and installed these tools, we are 
 ### Exercise 3: Create Azure Container Registry
 
 Azure Container Registry provides storage of private Docker images for container deployments. The service is a managed, private Docker registry service based on the open-source Docker Registry 2.0. Azure Container Registry is used to store and manage your private Docker container images.
+
+The Azure Container Registry will be used to store and deploy modules to Azure IoT Edge devices.
 
 In this exercise, you will use the Azure portal to create a new Azure Container Registry resource.
 
@@ -228,7 +277,7 @@ In this exercise, you will use the Azure portal to create a new Azure Container 
 
 1. Once created, navigate to the **AZ220ACR{YOUR-ID}** resource.
 
-1. In order to determine the admin username and password, on the left-hand side, under **Settings**, click **Access keys**.
+1. In order to determine the admin username and password, on the left-hand side, under **Settings**, click **Access keys**, then **Enable** Admin user.
 
     Make a note of the following values:
 
