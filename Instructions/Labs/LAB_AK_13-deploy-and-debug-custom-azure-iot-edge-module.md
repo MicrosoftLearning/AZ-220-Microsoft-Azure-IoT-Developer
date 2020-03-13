@@ -18,6 +18,8 @@ Azure IoT Edge enables you to deploy code to your IoT Edge devices from the clou
 
 IoT Edge modules are the smallest computation units managed by IoT Edge. Using IoT Edge modules, you can analyze data on devices instead of the cloud. By moving parts of your workload to the edge, your devices can spend less time sending messages to the cloud and react more quickly to events. 
 
+---
+
 ## Terminology
 
 ### Resource Groups
