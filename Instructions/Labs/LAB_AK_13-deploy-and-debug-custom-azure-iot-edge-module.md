@@ -302,7 +302,7 @@ In this exercise, you will use the Azure portal to create a new Azure Container 
 1. Once you have your authentication information, you can authenticate to the new registry for future Docker operations.  Open a local shell on your machine and run the following command:
 
     ```cmd/sh
-    docker login --username <username> --password-stdin <loginserver>
+    docker login --username <username> <loginserver>
     ```
 
     Replace the three placeholders with the information you recorded, and enter the password you recorded when prompted.  For example:
