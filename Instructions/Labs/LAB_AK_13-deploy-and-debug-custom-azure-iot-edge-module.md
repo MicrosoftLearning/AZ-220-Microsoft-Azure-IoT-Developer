@@ -26,11 +26,11 @@ When you run the set up script all th resources required for the lab will be pla
 
 Resource groups are a way of logically grouping related resources. Often you would group resources by solution, but you could group by geography, or maybe by business unit for billing purposes.
 
-## IoT Hub
+### IoT Hub
 
 IoT Hub is a managed service, hosted in the cloud, that acts as a central message hub for bi-directional communication between your IoT application and the devices it manages.
 
-## IoT Edge runtime environment
+### IoT Edge runtime environment
 
 The IoT Edge runtime is a collection of programs that turn a device into an IoT Edge device. Collectively, the IoT Edge runtime components enable IoT Edge devices to receive code to run at the edge and communicate the results.
 
@@ -44,20 +44,26 @@ The IoT Edge runtime is responsible for the following functions on IoT Edge devi
 * Managing communication between modules on the IoT Edge device.
 * Managing communication between the IoT Edge device and the cloud.
 
-## IoT Edge hub
+### IoT Edge hub
 
 It acts as a local proxy for IoT Hub by exposing the same protocol endpoints as IoT Hub. This consistency means that clients (whether devices or modules) can connect to the IoT Edge runtime just as they would to IoT Hub.
 
-## IoT Edge agent
+### IoT Edge agent
 
- It is responsible for instantiating modules, ensuring that they continue to run, and reporting the status of the modules back to IoT Hub.
+It is responsible for instantiating modules, ensuring that they continue to run, and reporting the status of the modules back to IoT Hub.
 
+### Routes
+
+The IoT Edge hub manages communication between modules, IoT Hub, and any leaf devices. Routes declare how messages are passed within a deployment. You can have multiple routes within the same deployment.
+
+---
 
 ## Prerequisites
 
 This lab includes the following prerequisites for the development machine (lab host environment - VM or PC):
 
-* Visual Studio Code with the following extensions installed:
+* The [.NET Core 2.1 SDK](https://dotnet.microsoft.com/download/dotnet-core/2.1)
+* [Visual Studio Code](https://code.visualstudio.com/) with the following extensions installed:
   * [Azure IoT Tools](https://marketplace.visualstudio.com/items?itemName=vsciot-vscode.azure-iot-tools) by Microsoft
   * [C#](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp) by Microsoft
   * [Docker](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
@@ -76,6 +82,8 @@ IoT Edge solution development in VS Code
 * Deploy modules to Edge device
 
 ## Lab Instructions
+
+---
 
 ### Exercise 1: Verify Lab Prerequisites
 
@@ -190,6 +198,8 @@ If these resources are not available, you will need to run the **lab13-setup.azc
 
 Once the script has completed, you will be ready to continue with the lab.
 
+---
+
 ### Exercise 2: Install Azure IoT EdgeHub Dev Tool
 
 The Azure IoT EdgeHub Dev Tool provide a local development experience with a simulator for creating, developing, testing, running, and debugging Azure IoT Edge modules and solutions. 
@@ -226,6 +236,8 @@ In this exercise, you will will install the Azure IoT EdgeHub Dev Tool.
     > **Note**:  If you have multiple Python including pre-installed Python 2.7 (for example, on Ubuntu or macOS), make sure you are using the correct `pip` or `pip3` to install `iotedgehubdev`.
 
 Now we have configured the python environment and installed these tools, we are now ready to create an Azure Container Registry which will be used to store our custom IoT Edge Module.
+
+---
 
 ### Exercise 3: Create Azure Container Registry
 
@@ -301,6 +313,8 @@ In this exercise, you will use the Azure portal to create a new Azure Container 
 
 Now that we have created the Azure Container Registry and authenticated our local machine against it, we can create a custom IoT Edge Module container that will be store in the registry.
 
+---
+
 ### Exercise 4: Create Custom Edge Module in C\#
 
 In this exercise, you will create an Azure IoT Edge Solution that contains a custom Azure IoT Edge Module written in C#.
@@ -337,6 +351,8 @@ In this exercise, you will create an Azure IoT Edge Solution that contains a cus
     > **Important**: Make sure to remove any reference to port `5000` from your ACR references!  That port is used for a local Docker repository but it not used in the ACR case.
 
 1. Once the new **IoT Edge Solution** has been created, Visual Studio Code will open the solution. In the **Explorer** pane, notice the files and directories that were created as part of the new IoT Edge Solution.
+
+1. Answer **Yes** if Visual Studio Code prompts with **Required assets to build and debug are missing, Add them?**.
 
 1. Open the `.env` file within the root directory of the IoT Edge Solution. This file is where the username and password are configured for accessing your Docker registry.
 
@@ -427,6 +443,8 @@ In this exercise, you will create an Azure IoT Edge Solution that contains a cus
     ```
 
 We have now created and configured a sample custom module. Next, we will debug it in the IoT Edge Simulator.
+
+---
 
 ### Exercise 5: Debug in Attach Mode with IoT Edge Simulator
 
@@ -560,7 +578,15 @@ In this exercise, you will build and run a custom IoT Edge Module solution using
 
 Now that the module has been created and tested in the IoT Edge simulator, it is time to deploy it to the cloud.
 
-### Exercise 6: Deploy IoT Edge Solution
+---
+
+### Exercise 6: Debug in Local Mode with IoT Edge Simulator
+
+You can also deploy and debug in Local Mode with the IoT Edge Simulator. Local Mode can help to reduce of the time to build, deploy, debug cycle. For more information see [Use Visual Studio Code to develop and debug modules for Azure IoT Edge](https://docs.microsoft.com/en-us/azure/iot-edge/how-to-vs-code-develop-module).
+
+---
+
+### Exercise 7: Deploy IoT Edge Solution
 
 In this exercise, you will build and publish the custom IoT Edge Module into the Azure Container Registry (ACR) service. Once published to ACR, the custom module will then be made available to be deployed to any IoT Edge Device.
 
