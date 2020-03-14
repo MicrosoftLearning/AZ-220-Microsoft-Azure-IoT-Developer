@@ -114,7 +114,7 @@ If these resources are not available, you will need to complete the following st
     YOUR_ID={YOUR-ID}
     ```
 
-5. List locations. From the **Cloud Shell Bash** prompt, run
+5. List locations. From the **Cloud Shell Bash** prompt, copy and paste, and run
 
     ```bash
     az account list-locations -o Table
