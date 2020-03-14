@@ -108,37 +108,39 @@ If these resources are not available, you will need to complete the following st
 
     The dropdown in the top-left corner of the Azure Cloud Shell page is used to select the environment. Verify that the selected dropdown value is **Bash**.
 
-4. From the Cloud Shell **Bash** prompt, type the following, replacing {YOUR-ID} with the Unique ID you created at the start of this course. For example, YOUR_ID=CAH191211.
+4. From the **Cloud Shell Bash** prompt, type the following, replacing {YOUR-ID} with the Unique ID you created at the start of this course. For example, YOUR_ID=CAH191211.
 
     ```bash
     YOUR_ID={YOUR-ID}
     ```
 
-5. List locations. From the Cloud Shell **Bash** prompt, run
+5. List locations. From the **Cloud Shell Bash** prompt, run
 
     ```bash
     az account list-locations -o Table
     ```
 
-6. Set your preferred location. From the Cloud Shell **Bash** prompt, run the following command, replacing {YOUR-LOCATION} with the short name of your preferred location. The short-names are listed in the **Name** column. For example LOCATION=australiaeast.
+6. Set your preferred location. From the **Cloud Shell Bash** prompt, run the following command, replacing {YOUR-LOCATION} with the short name of your preferred location.
+
+    Short-names are listed in the **Name** column from the _list-location_ command you just ran. For example LOCATION=australiaeast.
 
     ```bash
     LOCATION={YOUR-LOCATION}
     ```
 
-7. Create an Azure Resource Group. From the Cloud Shell **Bash** prompt, copy and paste the following command.
+7. Create an Azure Resource Group. From the **Cloud Shell Bash** prompt, copy and paste the following command.
 
     ```bash
     az group create --name AZ-220-RG --location $LOCATION
     ```
 
-8. Create an Azure IoT Hub. From the Cloud Shell **Bash** prompt, copy and paste the following command.
+8. Create an Azure IoT Hub. From the **Cloud Shell Bash** prompt, copy and paste the following command.
 
     ```bash
     az iot hub create --name "AZ-220-HUB-$YOUR_ID" -g AZ-220-RG --sku S1 --location $LOCATION
     ```
 
-9. Create an Azure Container Registry. From the Cloud Shell **Bash** prompt, paste and run the following command.
+9. Create an Azure Container Registry. From the **Cloud Shell Bash** prompt, paste and run the following command.
 
     ```bash
     az acr create --name "AZ-220-ACR-$YOUR_ID" --location $LOCATION --resource-group AZ-220-RG
