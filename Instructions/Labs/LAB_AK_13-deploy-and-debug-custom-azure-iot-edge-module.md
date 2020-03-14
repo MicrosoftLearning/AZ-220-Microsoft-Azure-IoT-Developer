@@ -87,6 +87,8 @@ IoT Edge solution development in VS Code
 
 ---
 
+## Proposed Alternative Set Up - dglover
+
 ### Exercise 1: Verify Lab Prerequisites
 
 This lab assumes that the following Azure resources are available:
@@ -96,7 +98,54 @@ This lab assumes that the following Azure resources are available:
 | Resource Group | AZ-220-RG |
 | IoT Hub | AZ-220-HUB-_{YOUR-ID}_ |
 
-If these resources are not available, you will need to run the **lab13-setup.azcli** script as instructed below before moving on to Exercise 2. The script file is included in the GitHub repository that you cloned locally as part of the dev environment configuration (lab 3).
+If these resources are not available, you will need to complete the following steps.
+
+1. From your browser, open the [Azure Cloud Shell](https://shell.azure.com/) and login with the Azure subscription you are using for this course.
+
+2. If you are prompted about setting up storage for Cloud Shell, accept the defaults.
+
+3. Verify that the Azure Shell is using **Bash**.
+
+    The dropdown in the top-left corner of the Azure Cloud Shell page is used to select the environment. Verify that the selected dropdown value is **Bash**.
+
+4. From the Cloud Shell **Bash** prompt, type the following, replacing {YOUR-ID} with the Unique ID you created at the start of this course. For example, YOUR_ID=CAH191211.
+
+    ```bash
+    YOUR_ID={YOUR-ID}
+    ```
+
+5. List locations. From the Cloud Shell **Bash** prompt, run
+
+    ```bash
+    az account list-locations -o Table
+    ```
+
+6. Set your preferred location. From the Cloud Shell **Bash** prompt, run the following command, replacing {YOUR-LOCATION} with the short name of your preferred location. The short-names are listed in the **Name** column. For example LOCATION=australiaeast.
+
+    ```bash
+    LOCATION={YOUR-LOCATION}
+    ```
+
+7. Create an Azure Resource Group. From the Cloud Shell **Bash** prompt, copy and paste the following command.
+
+    ```bash
+    az group create --name AZ-220-RG --location $LOCATION
+    ```
+
+8. Create an Azure IoT Hub. From the Cloud Shell **Bash** prompt, copy and paste the following command.
+
+    ```bash
+    az iot hub create --name "AZ-220-HUB-$YOUR_ID" -g AZ-220-RG --sku S1 --location $LOCATION
+    ```
+
+9. Create an Azure Container Registry. From the Cloud Shell **Bash** prompt, paste and run the following command.
+
+    ```bash
+    az acr create --name "AZ-220-ACR-$YOUR_ID" --location $LOCATION --resource-group AZ-220-RG
+    ```
+
+
+## Existing Set Up Instructions
 
 > **Note**:  The **lab13-setup.azcli** script is written to run in a **bash** shell environment - the easiest way to execute this is in the Azure Cloud Shell.
 
