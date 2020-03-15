@@ -156,7 +156,7 @@ If these resources are not available, you will need to complete the following st
     ``` -->
 
 
-## Existing Set Up Instructions
+## EXISTING LAB13 SET UP INSTRUCTIONS
 
 > **Note**:  The **lab13-setup.azcli** script is written to run in a **bash** shell environment - the easiest way to execute this is in the Azure Cloud Shell.
 
