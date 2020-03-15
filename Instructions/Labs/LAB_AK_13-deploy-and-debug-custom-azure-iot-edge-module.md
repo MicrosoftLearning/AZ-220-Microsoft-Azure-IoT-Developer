@@ -108,7 +108,16 @@ If these resources are not available, you will need to complete the following st
 
     The dropdown in the top-left corner of the Azure Cloud Shell page is used to select the environment. Verify that the selected dropdown value is **Bash**.
 
-4. From the **Cloud Shell Bash** prompt, type the following, replacing {YOUR-ID} with the Unique ID you created at the start of this course. For example, YOUR_ID=CAH191211.
+4. Create the resources required for this lab. You will be prompted for the Uniquie ID you created at the start of this course, and your preferred Azure location.
+
+
+    Copy and paste the following command into the **Azure Cloud Shell**, then press <kbd>ENTER</kbd>.
+
+    ```bash
+    bash -c "$(curl -s https://raw.githubusercontent.com/gloveboxes/AZ-220-Microsoft-Azure-IoT-Developer/master/Allfiles/Labs/13-Develop%2C%20Deploy%20and%20debug%20a%20custom%20module%20on%20Azure%20IoT%20Edge%20with%20VS%20Code/Setup/lab13-setup.sh)"
+    ```
+
+<!-- 4. From the **Cloud Shell Bash** prompt, type the following, replacing {YOUR-ID} with the Unique ID you created at the start of this course. For example, YOUR_ID=CAH191211.
 
     ```bash
     YOUR_ID={YOUR-ID}
@@ -144,7 +153,7 @@ If these resources are not available, you will need to complete the following st
 
     ```bash
     az acr create --name "AZ-220-ACR-$YOUR_ID" --location $LOCATION --resource-group AZ-220-RG
-    ```
+    ``` -->
 
 
 ## Existing Set Up Instructions
