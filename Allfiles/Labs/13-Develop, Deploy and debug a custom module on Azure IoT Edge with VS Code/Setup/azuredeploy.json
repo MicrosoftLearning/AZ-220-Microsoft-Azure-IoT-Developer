@@ -10,7 +10,8 @@
         }
     },
     "variables": {
-        "containerRegistryName": "[concat('', parameters('courseId'))]"
+        "containerRegistryName": "[concat('', parameters('courseId'))]",
+        "resourceGroupName": "resourceGroup()"
     },
     "outputs":{
          "containerRegistryName": {
@@ -23,7 +24,7 @@
             "type": "Microsoft.ContainerRegistry/registries",
             "apiVersion": "2019-12-01-preview",
             "name": "[variables('containerRegistryName')]",
-            "location": "{resourceGroupLocation}",
+            "location": "[variables('resourceGroupName')]",
             "sku": {
                 "name": "Standard",
                 "tier": "Standard"
