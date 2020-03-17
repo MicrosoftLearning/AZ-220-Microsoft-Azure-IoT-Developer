@@ -2,28 +2,28 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "IotHubs_AZ_220_HUB_GLOVEBOX_connectionString": {
-            "type": "SecureString"
-        },
-        "IotHubs_AZ_220_HUB_GLOVEBOX_containerName": {
-            "type": "SecureString"
-        },
-        "IotHubs_AZ_220_HUB_GLOVEBOX_name": {
-            "defaultValue": "AZ-220-HUB-GLOVEBOX",
-            "type": "String"
-        },
-        "registries_AZ220ACRGLOVEBOX_name": {
-            "defaultValue": "AZ220ACRGLOVEBOX",
-            "type": "String"
+        "courseId": {
+            "type": "String",
+            "metadata": {
+                "description": "Enter the Unique ID you created at the beginning of this course"
+            }
         }
     },
-    "variables": {},
+    "variables": {
+        "containerRegistryName": "[concat('', parameters('courseId'))]"
+    },
+    "outputs":{
+         "containerRegistryName": {
+            "type": "string",
+            "value": "[variables('containerRegistryName')]"
+        }
+    },
     "resources": [
         {
             "type": "Microsoft.ContainerRegistry/registries",
             "apiVersion": "2019-12-01-preview",
-            "name": "[parameters('registries_AZ220ACRGLOVEBOX_name')]",
-            "location": "australiaeast",
+            "name": "[variables('containerRegistryName')]",
+            "location": "{resourceGroupLocation}",
             "sku": {
                 "name": "Standard",
                 "tier": "Standard"
@@ -47,69 +47,6 @@
                     "status": "disabled"
                 },
                 "dataEndpointEnabled": false
-            }
-        },
-        {
-            "type": "Microsoft.Devices/IotHubs",
-            "apiVersion": "2019-11-04",
-            "name": "[parameters('IotHubs_AZ_220_HUB_GLOVEBOX_name')]",
-            "location": "australiaeast",
-            "sku": {
-                "name": "S1",
-                "tier": "Standard",
-                "capacity": 1
-            },
-            "properties": {
-                "ipFilterRules": [],
-                "eventHubEndpoints": {
-                    "events": {
-                        "retentionTimeInDays": 1,
-                        "partitionCount": 4
-                    }
-                },
-                "routing": {
-                    "endpoints": {
-                        "serviceBusQueues": [],
-                        "serviceBusTopics": [],
-                        "eventHubs": [],
-                        "storageContainers": []
-                    },
-                    "routes": [],
-                    "fallbackRoute": {
-                        "name": "$fallback",
-                        "source": "DeviceMessages",
-                        "condition": "true",
-                        "endpointNames": [
-                            "events"
-                        ],
-                        "isEnabled": true
-                    }
-                },
-                "storageEndpoints": {
-                    "$default": {
-                        "sasTtlAsIso8601": "PT1H",
-                        "connectionString": "[parameters('IotHubs_AZ_220_HUB_GLOVEBOX_connectionString')]",
-                        "containerName": "[parameters('IotHubs_AZ_220_HUB_GLOVEBOX_containerName')]"
-                    }
-                },
-                "messagingEndpoints": {
-                    "fileNotifications": {
-                        "lockDurationAsIso8601": "PT1M",
-                        "ttlAsIso8601": "PT1H",
-                        "maxDeliveryCount": 10
-                    }
-                },
-                "enableFileUploadNotifications": false,
-                "cloudToDevice": {
-                    "maxDeliveryCount": 10,
-                    "defaultTtlAsIso8601": "PT1H",
-                    "feedback": {
-                        "lockDurationAsIso8601": "PT5S",
-                        "ttlAsIso8601": "PT1H",
-                        "maxDeliveryCount": 10
-                    }
-                },
-                "features": "None"
             }
         }
     ]
