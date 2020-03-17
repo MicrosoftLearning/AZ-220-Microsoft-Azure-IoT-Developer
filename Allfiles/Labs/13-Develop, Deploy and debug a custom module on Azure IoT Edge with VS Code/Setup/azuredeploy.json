@@ -24,7 +24,7 @@
             "type": "Microsoft.ContainerRegistry/registries",
             "apiVersion": "2019-12-01-preview",
             "name": "[variables('containerRegistryName')]",
-            "location": "[variables('resourceGroupName')]",
+            "location": "[resourceGroup().location]",
             "sku": {
                 "name": "Standard",
                 "tier": "Standard"
