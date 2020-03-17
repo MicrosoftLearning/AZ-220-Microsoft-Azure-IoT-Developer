@@ -10,13 +10,8 @@
         }
     },
     "variables": {
-        "containerRegistryName": "[concat('', parameters('courseUniqueId'))]"
-    },
-    "outputs":{
-         "containerRegistryName": {
-            "type": "string",
-            "value": "[variables('containerRegistryName')]"
-        }
+        "courseId" : "[replace(toUpper(parameters('courseUniqueId')), '-', '')]",
+        "containerRegistryName": "[concat('ACR-', variables('courseId'))]"
     },
     "resources": [
         {
