@@ -98,7 +98,7 @@ This lab assumes that the following Azure resources are available:
 | Resource Group | AZ-220-RG |
 | IoT Hub | AZ-220-HUB-_{YOUR-ID}_ |
 
-Deploy the Lab 13 Assets: [![Deploy to Azure](https://azuredeploy.net/deploybutton.png)](https://github.com/gloveboxes/AZ-220-Microsoft-Azure-IoT-Developer/blob/master/Allfiles/Labs/13-Develop%2C%20Deploy%20and%20debug%20a%20custom%20module%20on%20Azure%20IoT%20Edge%20with%20VS%20Code/Setup)
+Deploy the Lab 13 Assets: [![Deploy to Azure](https://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/?repository=https://github.com/gloveboxes/AZ-220-Microsoft-Azure-IoT-Developer/blob/master/Allfiles/Labs/13-Develop%2C%20Deploy%20and%20debug%20a%20custom%20module%20on%20Azure%20IoT%20Edge%20with%20VS%20Code/Setup)
 
 If these resources are not available, you will need to complete the following steps.
 
