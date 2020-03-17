@@ -98,26 +98,16 @@ This lab assumes that the following Azure resources are available:
 | Resource Group | AZ-220-RG |
 | IoT Hub | AZ-220-HUB-_{YOUR-ID}_ |
 
-Deploy the Lab 13 Assets: [![Deploy to Azure](https://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/?repository=https://github.com/gloveboxes/AZ-220-Microsoft-Azure-IoT-Developer/blob/master/Allfiles/Labs/13-Develop%2C%20Deploy%20and%20debug%20a%20custom%20module%20on%20Azure%20IoT%20Edge%20with%20VS%20Code/Setup)
+If these resources are not available, you will need to complete the following steps. Click the **Deploy to Azure** button.
 
-If these resources are not available, you will need to complete the following steps.
+[![Deploy to Azure](https://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/?repository=https://github.com/gloveboxes/AZ-220-Microsoft-Azure-IoT-Developer/blob/master/Allfiles/Labs/13-Develop%2C%20Deploy%20and%20debug%20a%20custom%20module%20on%20Azure%20IoT%20Edge%20with%20VS%20Code/Setup)
 
-1. From your browser, open the [Azure Cloud Shell](https://shell.azure.com/) and login with the Azure subscription you are using for this course.
-
-2. If you are prompted about setting up storage for Cloud Shell, accept the defaults.
-
-3. Verify that the Azure Shell is using **Bash**.
-
-    The dropdown in the top-left corner of the Azure Cloud Shell page is used to select the environment. Verify that the selected dropdown value is **Bash**.
-
-4. Create the resources required for this lab. You will be prompted for the Uniquie ID you created at the start of this course, and your preferred Azure location.
-
-
-    Copy and paste the following command into the **Azure Cloud Shell**, then press <kbd>ENTER</kbd>.
-
-    ```bash
-    bash -c "$(curl -s https://raw.githubusercontent.com/gloveboxes/AZ-220-Microsoft-Azure-IoT-Developer/master/Allfiles/Labs/13-Develop%2C%20Deploy%20and%20debug%20a%20custom%20module%20on%20Azure%20IoT%20Edge%20with%20VS%20Code/Setup/lab13-setup.sh)"
-    ```
+1. The **Deploy to Azure** template will be displayed
+    ![](media/LAB_AK_13-azure-deploy.png)
+2. If you have already created a **Resource Group** for this course then select it from the **Resource Group** dropdown. Otherwise, enter the **Resource Group Name** AZ-220-RG.
+3. Select your preferred **Location**.
+4. Enter the **Course Unique Id** you created at the beginning of this course.
+5. Click **Next**, followed by **Deploy**.
 
 <!-- 4. From the **Cloud Shell Bash** prompt, type the following, replacing {YOUR-ID} with the Unique ID you created at the start of this course. For example, YOUR_ID=CAH191211.
 
