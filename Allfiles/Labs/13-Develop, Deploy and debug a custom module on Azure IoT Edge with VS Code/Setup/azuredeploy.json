@@ -11,7 +11,7 @@
     },
     "variables": {
         "courseId" : "[replace(toUpper(parameters('courseUniqueId')), '-', '')]",
-        "containerRegistryName": "[concat('ACR-', variables('courseId'))]"
+        "containerRegistryName": "[concat('ACR', variables('courseId'))]"
     },
     "resources": [
         {
