@@ -98,6 +98,8 @@ This lab assumes that the following Azure resources are available:
 | Resource Group | AZ-220-RG |
 | IoT Hub | AZ-220-HUB-_{YOUR-ID}_ |
 
+Deploy the Lab 13 Assets: [![Deploy to Azure](https://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/?repository=https://github.com/microsoft/ignite-learning-paths-training-mod/tree/master/mod30)
+
 If these resources are not available, you will need to complete the following steps.
 
 1. From your browser, open the [Azure Cloud Shell](https://shell.azure.com/) and login with the Azure subscription you are using for this course.
