@@ -4,7 +4,10 @@
     "parameters": {
         "siteLocation": {
             "type": "string",
-            "defaultValue": "East US"
+            "defaultValue": "East US",
+            "metadata": {
+                "description": "Select your preferred location"
+            }
         },
         "courseUniqueId": {
             "type": "String",
