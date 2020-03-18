@@ -16,47 +16,7 @@ In order to make sure the correct amount of products have been packed, you will 
 
 Azure IoT Edge enables you to deploy code to your IoT Edge devices from the cloud. The IoT Edge platform works with the cloud to deploy IoT Edge modules. IoT Edge modules are executable packages implemented as containers.
 
-IoT Edge modules are the smallest computation units managed by IoT Edge. Using IoT Edge modules, you can analyze data on devices instead of the cloud. By moving parts of your workload to the edge, your devices can spend less time sending messages to the cloud and react more quickly to events. 
-
----
-
-## Terminology
-
-### Resource Groups
-
-When you run the set up script all th resources required for the lab will be placed in a resource group named AZ220_RG.
-
-Resource groups are a way of logically grouping related resources. Often you would group resources by solution, but you could group by geography, or maybe by business unit for billing purposes.
-
-### IoT Hub
-
-IoT Hub is a managed service, hosted in the cloud, that acts as a central message hub for bi-directional communication between your IoT application and the devices it manages.
-
-### IoT Edge runtime environment
-
-The IoT Edge runtime is a collection of programs that turn a device into an IoT Edge device. Collectively, the IoT Edge runtime components enable IoT Edge devices to receive code to run at the edge and communicate the results.
-
-The IoT Edge runtime is responsible for the following functions on IoT Edge devices:
-
-* Installing and updating workloads on the device.
-* Maintaining Azure IoT Edge security standards on the device.
-* Ensuring that IoT Edge modules are always running.
-* Reporting module health to the cloud for remote monitoring.
-* Managing communication between downstream devices and IoT Edge devices.
-* Managing communication between modules on the IoT Edge device.
-* Managing communication between the IoT Edge device and the cloud.
-
-### IoT Edge hub
-
-It acts as a local proxy for IoT Hub by exposing the same protocol endpoints as IoT Hub. This consistency means that clients (whether devices or modules) can connect to the IoT Edge runtime just as they would to IoT Hub.
-
-### IoT Edge agent
-
-It is responsible for instantiating modules, ensuring that they continue to run, and reporting the status of the modules back to IoT Hub.
-
-### Routes
-
-The IoT Edge hub manages communication between modules, IoT Hub, and any leaf devices. Routes declare how messages are passed within a deployment. You can have multiple routes within the same deployment.
+IoT Edge modules are the smallest computation units managed by IoT Edge. Using IoT Edge modules, you can analyze data on devices instead of the cloud. By moving parts of your workload to the edge, your devices can spend less time sending messages to the cloud and react more quickly to events.
 
 ---
 
@@ -87,9 +47,7 @@ IoT Edge solution development in VS Code
 
 ---
 
-## Proposed Alternative Set Up - dglover
-
-### Exercise 1: Verify Lab Prerequisites
+<!-- ### Exercise 1: Verify Lab Prerequisites
 
 This lab assumes that the following Azure resources are available:
 
@@ -107,7 +65,7 @@ If these resources are not available, you will need to complete the following st
 2. If you have already created a **Resource Group** for this course then select it from the **Resource Group** dropdown. Otherwise, enter the **Resource Group Name** AZ-220-RG.
 3. Select your preferred **Location**.
 4. Enter the **Course Unique Id** you created at the beginning of this course.
-5. Click **Next**, followed by **Deploy**.
+5. Click **Next**, followed by **Deploy**. -->
 
 <!-- 4. From the **Cloud Shell Bash** prompt, type the following, replacing {YOUR-ID} with the Unique ID you created at the start of this course. For example, YOUR_ID=CAH191211.
 
@@ -147,8 +105,15 @@ If these resources are not available, you will need to complete the following st
     az acr create --name "AZ-220-ACR-$YOUR_ID" --location $LOCATION --resource-group AZ-220-RG
     ``` -->
 
+## Exercise 1: Set up required Azure Services
 
-## EXISTING LAB13 SET UP INSTRUCTIONS
+In this exercise we will be setting up the following resources:
+
+1. **Resource Group**, which is a way of keeping related resources together to make it easier to manage.
+2. **Azure IoT Hub**, which is a managed service that acts as a central message hub for bi-directional communication between your IoT application and the devices it manages.
+3. **Azure Container Registry**, which is a service to build, store, secure, scan, replicate and manage container images.
+
+Follow these steps:
 
 > **Note**:  The **lab13-setup.azcli** script is written to run in a **bash** shell environment - the easiest way to execute this is in the Azure Cloud Shell.
 
@@ -293,57 +258,17 @@ Now we have configured the python environment and installed these tools, we are 
 
 ---
 
-### Exercise 3: Create Azure Container Registry
+### Exercise 3: Log into Azure Container Registry
 
-Azure Container Registry provides storage of private Docker images for container deployments. The service is a managed, private Docker registry service based on the open-source Docker Registry 2.0. Azure Container Registry is used to store and manage your private Docker container images.
-
-The Azure Container Registry will be used to store and deploy modules to Azure IoT Edge devices.
-
-In this exercise, you will use the Azure portal to create a new Azure Container Registry resource.
+In this exercise you will log the Docker client into Azure Container Registry so that you can build, push, and store container images in Azure. Later you will learn how to deploy container images stored in the Azure Container Registry to Azure IoT Edge devices.
 
 1. If necessary, log in to your Azure portal using your Azure account credentials.
 
     If you have more than one Azure account, be sure that you are logged in with the account that is tied to the subscription that you will be using for this course.
 
-1. In the Azure Portal, click **Create a resource** to open the Azure Marketplace.
+1. Navigate to the **AZ220ACR{YOUR-ID}** resource.
 
-1. On the **New** blade, in the **Search the Marketplace** box, type in and search for **Container Registry**.
-
-1. In the search results, select the **Container Registry** item.
-
-1. On the **Container Registry** item, click **Create**.
-
-1. On the **Create container registry** blade, enter a globally unique name in the **Registry name** field.
-
-    To provide a globally unique name, enter **AZ220ACR{YOUR-ID}**.
-
-    For example: **AZ220ACRCAH191204**
-
-    The name of your Azure Container Registry must be globally unique because it is a publicly accessible resource that you must be able to access from any IP connected device.
-
-    Consider the following when you specify a unique name for your new Azure Container Registry:
-
-    * As mentioned above, the name of the registry must be unique across all of Azure. This is true because the value assigned to the name will be used in the domain name assigned to the service. Since Azure enables you to connect from anywhere in the world to your registry, it makes sense that all container registries must be accessible from the Internet using the resulting domain name.
-
-    * The registry name cannot be changed once the Azure Container Registry has been created. If you do need to change the name, you'll need to create a new Container Registry, re-deploy your container images, and delete your old Container Registry.
-
-    > **Note**:  Azure will ensure that the name you enter is unique. If the name that you enter is not unique, Azure will display an asterisk at the end of the name field as a warning. You can append the name suggested above with `01` or `02` as necessary to achieve a globally unique name.
-
-1. In the **Resource group** dropdown, select the **AZ-220-RG** resource group.
-
-1. In the **Location** dropdown, choose the same Azure region that was used for the resource group.
-
-1. On the **Admin user** option, select **Enable**. This option will enable you to Docker login to the Azure Container Registry service using the registry name as the username and admin user access key as the password.
-
-1. In the **SKU** dropdown, choose **Standard**.
-
-    Azure Container Registry is available in multiple service tiers, known as SKUs. These SKUs provide predictable pricing and several options for aligning to the capacity and usage patterns of your private Docker registry in Azure.
-
-1. Click **Create**.
-
-1. Once created, navigate to the **AZ220ACR{YOUR-ID}** resource.
-
-1. In order to determine the admin username and password, on the left-hand side, under **Settings**, click **Access keys**, then **Enable** Admin user.
+1. In get the admin username and password, on the left-hand side, under **Settings**, click **Access keys**, then **Enable** Admin user.
 
     Make a note of the following values:
 
@@ -360,7 +285,7 @@ In this exercise, you will use the Azure portal to create a new Azure Container 
     Replace the three placeholders with the information you recorded, and enter the password you recorded when prompted.  For example:
 
     ```cmd/sh
-    docker login --username az220acrcah191204 --password-stdin  az220acrcah191204.azurecr.io
+    docker login --username az220acrcah191204 az220acrcah191204.azurecr.io
     ```
 
     This command will record your credentials in the local Docker client configuration file (`$HOME/.docker/config.json`) or your operating system's secure credential storage mechanism (depending on the Docker configuration) for future use by the Docker toolset.
@@ -408,6 +333,12 @@ In this exercise, you will create an Azure IoT Edge Solution that contains a cus
 
 1. Answer **Yes** if Visual Studio Code prompts with **Required assets to build and debug are missing, Add them?**.
 
+---
+
+### Exercise 5: Configure Azure Container Registry
+
+As of when this lab was written, the Visual Studio Code tools do not automatically perform the `docker login` when pushing container images to Azure Container Registry. The Azure Container Registry credentials need to be added to an **.env** environment variables file.
+
 1. Open the `.env` file within the root directory of the IoT Edge Solution. This file is where the username and password are configured for accessing your Docker registry.
 
     The username and password are stored in this file using the following format:
@@ -425,11 +356,39 @@ In this exercise, you will create an Azure IoT Edge Solution that contains a cus
 
     Within the `.env` file, notice that the `<registry-name>` has already been added to the configuration values within the file. The value added will match the name of the Docker registry specified when creating the IoT Edge Solution.
 
-    > **Note**: You may wonder why you ran `docker login` before when you're supplying the same credentials here.  As of when this lab was written, the Visual Studio Code tools do not automatically perform the `docker login` step with these credentials; they are only used to supply the credentials to the Edge Agent later as part of the deployment template.
-
 1. Within the `.env` file, replace the `<registry-username>` placeholder with the **Registry name** (_aka Username_) of the Azure Container Registry that was previously created, and replace the `<registry-password>` placeholder with the **password** for the Azure Container Registry.
 
     > **Note**:  The Azure Container Registry **Username** and **password** values can be found by accessing the **Access keys** pane for the **Azure Container Registry** service within the Azure portal, if you did not record them earlier.
+
+---
+
+### Exercise 6: Understanding Azure IoT Edge Deployments
+
+### IoT Edge runtime environment
+
+The IoT Edge runtime is a collection of programs that turn a device into an IoT Edge device. Collectively, the IoT Edge runtime components enable IoT Edge devices to receive code to run at the edge and communicate the results.
+
+The IoT Edge runtime is responsible for the following functions on IoT Edge devices:
+
+* Installing and updating workloads on the device.
+* Maintaining Azure IoT Edge security standards on the device.
+* Ensuring that IoT Edge modules are always running.
+* Reporting module health to the cloud for remote monitoring.
+* Managing communication between downstream devices and IoT Edge devices.
+* Managing communication between modules on the IoT Edge device.
+* Managing communication between the IoT Edge device and the cloud.
+
+#### IoT Edge hub
+
+It acts as a local proxy for IoT Hub by exposing the same protocol endpoints as IoT Hub. This consistency means that clients (whether devices or modules) can connect to the IoT Edge runtime just as they would to IoT Hub.
+
+#### IoT Edge agent
+
+It is responsible for instantiating modules, ensuring that they continue to run, and reporting the status of the modules back to IoT Hub.
+
+#### Routes
+
+The IoT Edge hub manages communication between modules, IoT Hub, and any leaf devices. Routes declare how messages are passed within a deployment. You can have multiple routes within the same deployment.
 
 1. Open the `deployment.template.json` file within the root IoT Edge Solution directory. This file is the _deployment manifest_ for the IoT Edge Solution. The deployment manifest tells an IoT Edge device (or a group of devices) which modules to install and how to configure them. The deployment manifest includes the _desired properties_ for each module twin. IoT edge devices report back the _reported properties_ for each module.
 
@@ -466,11 +425,9 @@ In this exercise, you will create an Azure IoT Edge Solution that contains a cus
 
     The `ObjectCountingModuleToIoTHub` route is configured to route messages that are sent out from the custom `OutputCounterModule` module (via `/messages/modules/SimulatedTemperatureSensor/outputs/temperatureOutput`) to the Azure IoT Hub service (via `$upstream`).
 
-1. In Visual Studio Code, open the **Command Palette**, then search for **Azure IoT Edge: Set Default Target Platform for Edge Solution** and select it.
+---
 
-1. Select the **amd64** target platform for the IoT Edge Solution. This target platform needs to be set to the hardware platform architecture of the IoT Edge Device.
-
-    > **Note**: Since you are using the **IoT Edge on Ubuntu** Linux VM, the `amd64` option is the appropriate choice. For a Windows VM, use `windows-amd64`, and for modules that will be running on an ARM CPU architecture, use choose the `arm32v7` option.
+### Exercise 7: Understanding the Custom Module Template
 
 1. Expand the `/modules/ObjectCountingModule` directory within the solution. Notice this directory contains the source code files for the new IoT Edge Module being developed.
 
@@ -500,7 +457,7 @@ We have now created and configured a sample custom module. Next, we will debug i
 
 ---
 
-### Exercise 5: Debug in Attach Mode with IoT Edge Simulator
+### Excercise 8: Create an Azure IoT Edge Device
 
 In this exercise, you will build and run a custom IoT Edge Module solution using the IoT Edge Simulator from within Visual Studio Code.
 
@@ -532,6 +489,10 @@ In this exercise, you will build and run a custom IoT Edge Module solution using
 
 1. Leave the other settings at their defaults, and click **Save**.
 
+---
+
+### Exercise 9: Set up the Azure IoT Edge Simulator
+
 1. Change back to the IoT Edge solution in **Visual Studio Code**.
 
 1. Within the **Explorer** pane, right-click the `deployment.debug.template.json` debugging deployment manifest file in the root directory of the IoT Edge Solution.
@@ -552,7 +513,17 @@ In this exercise, you will build and run a custom IoT Edge Module solution using
 
 1. Once the **IoT Edge Simulator** is set up successfully, a `Setup IoT Edge Simulator successfully` message will be displayed in the **TERMINAL**.
 
-1. Now that the **IoT Edge Simulator** has been set up, right-click the `deployment.debug.template.json` debugging deployment manifest file in the root directory of the IoT Edge solution, and select the **Build and Run IoT Edge Solution in Simulator** option again.
+---
+
+### Exercise 10: Build and run the IoT Edge Solution in the simulator
+
+1. In Visual Studio Code, open the **Command Palette**, then search for **Azure IoT Edge: Set Default Target Platform for Edge Solution** and select it.
+
+1. Select the **amd64** target platform for the IoT Edge Solution. This target platform needs to be set to the hardware platform architecture of the IoT Edge Device.
+
+    > **Note**: Since you are using the **IoT Edge on Ubuntu** Linux VM, the `amd64` option is the appropriate choice. For a Windows VM, use `windows-amd64`, and for modules that will be running on an ARM CPU architecture, use choose the `arm32v7` option.
+
+1. Right-click the `deployment.debug.template.json` debugging deployment manifest file in the root directory of the IoT Edge solution, and select the **Build and Run IoT Edge Solution in Simulator** option again.
 
     > **Note**: If you are on Windows and see a message in in **TERMINAL** that reads, in part, `open //./pipe/docker_engine: The system cannot find the file specified.`, Docker is likely not started, or running correctly.  A Docker restart or even a full computer restart might be necessary.
 
@@ -572,6 +543,10 @@ In this exercise, you will build and run a custom IoT Edge Module solution using
     ```
 
     Notice the output from the **ObjectCountingModule** contains the text `Received message: #` where `#` is the total message count that has been received by the custom **ObjectCountingModule** IoT Edge Module that was created.
+
+---
+
+### Exercise 11: Monitor Device to Cloud Messages
 
 1. With the IoT Edge Simulator still running, open the Azure portal, then open the Cloud Shell by clicking the Cloud Shell icon at to top of the Azure portal.
 
@@ -606,6 +581,10 @@ In this exercise, you will build and run a custom IoT Edge Module solution using
 
 1. To stop monitoring Azure IoT Hub events, press **Ctrl + C** within the Azure Cloud Shell.
 
+---
+
+### Exercise 12: Attach the debugger to the IoT Edge solution
+
 1. Navigate to the Visual Studio Code **Debug** view, by clicking on the **Debug** icon on the left-side of the window.
 
 1. On the dropdown at the top of the **Debug** pane, select the **ObjectCountingModule Remote Debug (.NET Core)** option.
@@ -632,19 +611,19 @@ In this exercise, you will build and run a custom IoT Edge Module solution using
 
 Now that the module has been created and tested in the IoT Edge simulator, it is time to deploy it to the cloud.
 
----
+<!-- ---
 
 ### Exercise 6: Debug in Local Mode with IoT Edge Simulator
 
-You can also deploy and debug in Local Mode with the IoT Edge Simulator. Local Mode can help to reduce of the time to build, deploy, debug cycle. For more information see [Use Visual Studio Code to develop and debug modules for Azure IoT Edge](https://docs.microsoft.com/en-us/azure/iot-edge/how-to-vs-code-develop-module).
+You can also deploy and debug in Local Mode with the IoT Edge Simulator. Local Mode can help to reduce of the time to build, deploy, debug cycle. For more information see [Use Visual Studio Code to develop and debug modules for Azure IoT Edge](https://docs.microsoft.com/en-us/azure/iot-edge/how-to-vs-code-develop-module). -->
 
 ---
 
-### Exercise 7: Deploy IoT Edge Solution
+### Exercise 13: Deploy IoT Edge Solution
 
 In this exercise, you will build and publish the custom IoT Edge Module into the Azure Container Registry (ACR) service. Once published to ACR, the custom module will then be made available to be deployed to any IoT Edge Device.
 
-1. Change to the **Explorer** view, and open `.env` to ensure credentials for the Azure Container Registry have been set. Do this by opening the `.env` file located in the root directory of the IoT Edge Solution and reviewing it.  When set correctly, the `CONTAINER_REGISTRY_USERNAME_<acr-name>` key will have it's value set to the Azure Container Registry service name, and the `CONTAINER_REGISTRY_PASSWORD_<acr-name>` key will have it's value set to the **Password** for the Azure Container Registry service. Keep in mind, the `<acr-name>` placeholders in the keys will be set to the ACR service name (is all lowercase) automatically when the IoT Edge Solution was created.
+1. From Visual Studio Code, change to the **Explorer** view, and open `.env` to ensure credentials for the Azure Container Registry have been set. Do this by opening the `.env` file located in the root directory of the IoT Edge Solution and reviewing it.  When set correctly, the `CONTAINER_REGISTRY_USERNAME_<acr-name>` key will have it's value set to the Azure Container Registry service name, and the `CONTAINER_REGISTRY_PASSWORD_<acr-name>` key will have it's value set to the **Password** for the Azure Container Registry service. Keep in mind, the `<acr-name>` placeholders in the keys will be set to the ACR service name (is all lowercase) automatically when the IoT Edge Solution was created.
 
     The resulting `.env` file contents will look similar to the following:
 
@@ -656,6 +635,10 @@ In this exercise, you will build and publish the custom IoT Edge Module into the
 1. Right-click `deployment.template.json`, and select **Build and Push IoT Edge Solution**.
 
 1. The status of the Build and Push IoT Edge Solution operation is displayed within the Visual Studio Code **TERMINAL** window. Once the process completes, the custom `ObjectCountingModule` IoT Edge Module will have been built, and then the Docker image for the IoT Edge Module will be published to the Azure Container Registry service.
+
+---
+
+### Exercise 14: Create an Azure IoT Edge Cloud Deployment
 
 1. Open the Azure portal. If necessary, log in to your Azure portal using your Azure account credentials.
 
@@ -693,6 +676,8 @@ In this exercise, you will build and publish the custom IoT Edge Module into the
     objectcountingmodule:0.0.1-amd64
     ```
 
+#### Create a new Azure IoT Edge device
+
 1. Navigate to your Azure IoT Hub (`AZ-220-HUB-{YOUR-ID}`) resource. With the custom `objectcountingmodule` IoT Edge Module published to Azure Container Registry (ACR), the next step is to create a new IoT Edge Device within IoT Hub and configure it to run the new custom IoT Edge Module.
 
 1. On the **IoT Hub** blade, under the **Automatic Device Management** section, click on the **IoT Edge** link.
@@ -706,6 +691,8 @@ In this exercise, you will build and publish the custom IoT Edge Module into the
     For this unit, we'll keep the IoT Edge Module registration simple by choosing _Symmetric key_ authentication. With the _Auto-generate keys_ option selected, the IoT Hub with automatically generate authentication keys for this device.
 
 1. Click **Save**.
+
+#### Set the deployment modules
 
 1. On the **IoT Edge** pane, in the list of IoT Edge devices, click on the **objectcountingdevice** IoT Edge Device to open the details view for the device.
 
@@ -744,6 +731,8 @@ In this exercise, you will build and publish the custom IoT Edge Module into the
 
 1. Leave the rest of the settings at their defaults and click **Add**.
 
+#### Set module routes
+
 1. Now back on the **Set modules on device: objectcountingdevice** blade, click **Next: Routes**.
 
 1. Within the **Specify Routes**, the editor will display the configured default route for the IoT Edge Device. At this time, it should be configured with a route that sends all messages from all modules to Azure IoT Hub:
@@ -778,4 +767,6 @@ In this exercise, you will build and publish the custom IoT Edge Module into the
 
 1. On the **Review Deployment** step, click **Create**.
 
-This completes the development of a sample custom IoT Edge Module * `objectcountingmodule`. Now that an IoT Edge Device is registered, the modules specified and the routes configured, the `objectcountingmodule` is ready to be deployed once the associated IoT Edge Device is connected to the Azure IoT Hub as shown in previous labs.
+#### Ready for deployment
+
+This completes the development of a sample custom IoT Edge Module `objectcountingmodule`. Now that an IoT Edge Device is registered, the modules specified and the routes configured, the `objectcountingmodule` is ready to be deployed once the associated IoT Edge Device is connected to the Azure IoT Hub as shown in previous labs.
