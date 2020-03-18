@@ -362,41 +362,43 @@ As of when this lab was written, the Visual Studio Code tools do not automatical
 
 ---
 
-### Exercise 6: Understanding Azure IoT Edge Deployments
+### Exercise 6: How Azure IoT Edge deployments work
 
-### IoT Edge runtime environment
+#### Azure IoT Edge Runtime
 
-The IoT Edge runtime is a collection of programs that turn a device into an IoT Edge device. Collectively, the IoT Edge runtime components enable IoT Edge devices to receive code to run at the edge and communicate the results.
+The IoT Edge runtime must be installed on an Azure IoT Edge device before you can deploy a solution to the device. The runtime is responsible for:
 
-The IoT Edge runtime is responsible for the following functions on IoT Edge devices:
+1. Downloading and starting container images on the IoT Edge device
+2. Version management, ensure when a new version of a container image is available it will be downloaded, the existing container will be stopped, and the new version started.
+3. Routing messages between modules running on the IoT Edge device and to Azure IoT.
+4. It manages and monitors the health of solutions running on the device, including restarting crashed applications.
+5. Reports the health and state of the solution to Azure IoT for centralized management.
 
-* Installing and updating workloads on the device.
-* Maintaining Azure IoT Edge security standards on the device.
-* Ensuring that IoT Edge modules are always running.
-* Reporting module health to the cloud for remote monitoring.
-* Managing communication between downstream devices and IoT Edge devices.
-* Managing communication between modules on the IoT Edge device.
-* Managing communication between the IoT Edge device and the cloud.
+    ![](media/module-endpoints-with-routes.png)
 
-#### IoT Edge hub
+#### The Deployment Manifest
+
+Open the `deployment.template.json` file within the root IoT Edge Solution directory. This file is the _deployment manifest_ for the IoT Edge Solution. 
+
+The deployment manifest tells an IoT Edge device (or a group of devices) which modules to install and how to configure them. The deployment manifest includes the _desired properties_ for each module twin. IoT edge devices report back the _reported properties_ for each module.
+
+#### IoT Edge Runtime System Modules
+
+In the deployment.template.json file, you will see references to two required modules named `$edgeAgent`, and `$edgeHub`. These two modules are part if the IoT Edge Runtime.
+
+#### IoT Edge Hub
 
 It acts as a local proxy for IoT Hub by exposing the same protocol endpoints as IoT Hub. This consistency means that clients (whether devices or modules) can connect to the IoT Edge runtime just as they would to IoT Hub.
 
-#### IoT Edge agent
+#### IoT Edge Agent
 
 It is responsible for instantiating modules, ensuring that they continue to run, and reporting the status of the modules back to IoT Hub.
 
-#### Routes
-
-The IoT Edge hub manages communication between modules, IoT Hub, and any leaf devices. Routes declare how messages are passed within a deployment. You can have multiple routes within the same deployment.
-
-1. Open the `deployment.template.json` file within the root IoT Edge Solution directory. This file is the _deployment manifest_ for the IoT Edge Solution. The deployment manifest tells an IoT Edge device (or a group of devices) which modules to install and how to configure them. The deployment manifest includes the _desired properties_ for each module twin. IoT edge devices report back the _reported properties_ for each module.
-
-    Two modules are required in every deployment manifest; `$edgeAgent` and `$edgeHub`. These modules are part of the IoT Edge runtime that manages the IoT Edge devices and the modules running on it.
+#### Modules
 
 1. Scroll through the `deployment.template.json` deployment manifest file, and notice the following sections within the `properties.desired` section of the `$edgeAgent` element:
 
-    * `systemModules` - This defines Docker images to use for the `$edgeAgent` and `$edgeHub` system modules that are part of the IoT Edge runtime.
+    * `systemModules` - This defines Docker images to use for the `$edgeAgent` and `$edgeHub` system modules.
 
     * `modules` - This defines the various modules that will be deployed and run on the IoT Edge device (or a group of devices).
 
@@ -406,28 +408,35 @@ The IoT Edge hub manages communication between modules, IoT Hub, and any leaf de
 
     * `SimulatedTemperatureSensor`: This defines the Simulated Temperature Sensor module to be deployed to the IoT Edge device.
 
-1. Notice the `$edgeHub` section of the deployment manifest. This section defines the desired properties (via `properties.desired` element) that includes the message routes for communicating messages between the IoT Edge Modules and finally to Azure IoT Hub service.
+#### Routes
 
-    ```json
-        "$edgeHub": {
-          "properties.desired": {
-            "schemaVersion": "1.0",
-            "routes": {
-              "ObjectCountingModuleToIoTHub": "FROM /messages/modules/ObjectCountingModule/outputs/* INTO $upstream",
-              "sensorToObjectCountingModule": "FROM /messages/modules/SimulatedTemperatureSensor/outputs/temperatureOutput INTO BrokeredEndpoint(\"/modules/ObjectCountingModule/inputs/input1\")"
-            },
-            ...
-          }
-        }
-    ```
+The IoT Edge hub manages communication between modules, IoT Hub, and any leaf devices. Routes declare how messages are passed within a deployment. You can have multiple routes within the same deployment.
 
-    The `sensorToObjectCountingModule` route is configured to route messages from the `SimulatedTemperatureSensor` (via `/messages/modules/SimulatedTemplaratureSensor/outputs/temperatureOutput`) module to the custom `OutputCounterModule` module (via `BrokeredEndpoint(\"/modules/ObjectCountingModule/inputs/input1\")"`).
+Notice the `$edgeHub` section of the deployment manifest. This section defines the desired properties (via `properties.desired` element) that includes the message routes for communicating messages between the IoT Edge Modules and finally to Azure IoT Hub service.
 
-    The `ObjectCountingModuleToIoTHub` route is configured to route messages that are sent out from the custom `OutputCounterModule` module (via `/messages/modules/SimulatedTemperatureSensor/outputs/temperatureOutput`) to the Azure IoT Hub service (via `$upstream`).
+```json
+"$edgeHub": {
+    "properties.desired": {
+    "schemaVersion": "1.0",
+    "routes": {
+        "ObjectCountingModuleToIoTHub": "FROM /messages/modules/ObjectCountingModule/outputs/* INTO $upstream",
+        "sensorToObjectCountingModule": "FROM /messages/modules/SimulatedTemperatureSensor/outputs/temperatureOutput INTO BrokeredEndpoint(\"/modules/ObjectCountingModule/inputs/input1\")"
+    },
+    ...
+    }
+}
+```
+
+* The `sensorToObjectCountingModule` route is configured to route messages from the `SimulatedTemperatureSensor` (via `/messages/modules/SimulatedTemplaratureSensor/outputs/temperatureOutput`) module to the custom `OutputCounterModule` module (via `BrokeredEndpoint(\"/modules/ObjectCountingModule/inputs/input1\")"`).
+
+* The `ObjectCountingModuleToIoTHub` route is configured to route messages that are sent out from the custom `OutputCounterModule` module (via `/messages/modules/SimulatedTemperatureSensor/outputs/temperatureOutput`) to the Azure IoT Hub service (via `$upstream`).
 
 ---
 
 ### Exercise 7: Understanding the Custom Module Template
+
+**//TODO: Add description Pipeline, What does the app do, starting point for building out a custom module..**
+
 
 1. Expand the `/modules/ObjectCountingModule` directory within the solution. Notice this directory contains the source code files for the new IoT Edge Module being developed.
 
@@ -457,7 +466,10 @@ We have now created and configured a sample custom module. Next, we will debug i
 
 ---
 
-### Excercise 8: Create an Azure IoT Edge Device
+### Exercise 8: Create an Azure IoT Edge Device
+
+**//TODO: Add description IoT Edge Simulator in place of having full iot edge runtime, more productive**
+
 
 In this exercise, you will build and run a custom IoT Edge Module solution using the IoT Edge Simulator from within Visual Studio Code.
 
