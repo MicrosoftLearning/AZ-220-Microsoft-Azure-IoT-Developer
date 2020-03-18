@@ -25,6 +25,7 @@ IoT Edge modules are the smallest computation units managed by IoT Edge. Using I
 This lab includes the following prerequisites for the development machine (lab host environment - VM or PC):
 
 * The [.NET Core 2.1 SDK](https://dotnet.microsoft.com/download/dotnet-core/2.1)
+*  [Python](https://www.python.org/) 2.7, 3.6, or 3.7
 * [Visual Studio Code](https://code.visualstudio.com/) with the following extensions installed:
   * [Azure IoT Tools](https://marketplace.visualstudio.com/items?itemName=vsciot-vscode.azure-iot-tools) by Microsoft
   * [C#](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp) by Microsoft
