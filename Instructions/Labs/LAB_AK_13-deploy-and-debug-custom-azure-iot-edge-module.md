@@ -10,7 +10,7 @@ lab:
 
 Contoso's warehouse moves inventory that is ready to be packed for delivery on a conveyor belt.
 
-In order to make sure the correct amount of products have been packed, you will add a simple module to count objects detected on the belt by another object detection module (simulated) on the same IoT Edge device. We will show how to create a custom module that does object counting.
+To make sure the correct amount of products have been packed, you will add a simple module to count objects detected on the belt by another object detection module (simulated) on the same IoT Edge device. We will show how to create a custom module that does object counting.
 
 ## What is a Custom Module
 
@@ -30,10 +30,10 @@ This lab includes the following prerequisites for the development machine (lab h
   * [Azure IoT Tools](https://marketplace.visualstudio.com/items?itemName=vsciot-vscode.azure-iot-tools) by Microsoft
   * [C#](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp) by Microsoft
   * [Docker](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
-* Docker Community Edition installed on development machine, with Docker Client version 18.03.0 or later
+* Install Docker Community Edition on your computer. The Docker Client must be version 18.03.0 or later
   * [Download Docker Desktop for Mac and Windows](https://www.docker.com/products/docker-desktop)
 
-    > **Important**: Because of removal of Azure Container Registry support for TLS before TLS version 1.2 on January 13, 2020, you must be on Docker Client 18.03.0 or later.
+    > **Important**: Because of the removal of Azure Container Registry support for TLS before TLS version 1.2 on January 13, 2020, you must be on Docker Client 18.03.0 or later.
 
 ## In This Lab
 
@@ -161,7 +161,7 @@ Follow these steps:
     cd lab13
     ```
 
-    These commands will create a directory for this lab, move the **lab13-setup.azcli** file into that directory, and then change directory to make the new directory the current working directory.
+    These commands will create a directory for this lab, move the **lab13-setup.azcli** file into that directory and then change directory to make the new directory the current working directory.
 
 1. To ensure the **lab13-setup.azcli** has the execute permission, enter the following command:
 
@@ -222,11 +222,11 @@ Once the script has completed, you will be ready to continue with the lab.
 
 ### Exercise 2: Install Azure IoT EdgeHub Dev Tool
 
-The Azure IoT EdgeHub Dev Tool provide a local development experience with a simulator for creating, developing, testing, running, and debugging Azure IoT Edge modules and solutions. 
+The Azure IoT EdgeHub Dev Tool provides a local development experience with a simulator for creating, developing, testing, running, and debugging Azure IoT Edge modules and solutions.
 
-The Azure IoT EdgeHub Dev Tool streamlines the development process by reducing the time taken to build, deploy, and debug your Azure IoT Edge modules.  
+The Azure IoT EdgeHub Dev Tool reduces the developer environment set-up complexity and streamlines the development process by reducing the time taken to build, deploy, and debug your Azure IoT Edge modules.
 
-In this exercise, you will will install the Azure IoT EdgeHub Dev Tool.
+In this exercise, you will install the Azure IoT EdgeHub Dev Tool.
 
 1. To develop Azure IoT Edge modules with C#, you will need to install the Azure IoT EdgeHub Dev Tool. This tool required Python 2.7, 3.6, or 3.7 to be installed.
 
@@ -261,7 +261,7 @@ Now we have configured the python environment and installed these tools, we are 
 
 ### Exercise 3: Log into Azure Container Registry
 
-In this exercise you will log the Docker client into Azure Container Registry so that you can build, push, and store container images in Azure. Later you will learn how to deploy container images stored in the Azure Container Registry to Azure IoT Edge devices.
+In this exercise, you will log the Docker client into Azure Container Registry so that you can build, push, and store container images in Azure. Later you will learn how to deploy container images stored in the Azure Container Registry to Azure IoT Edge devices.
 
 1. If necessary, log in to your Azure portal using your Azure account credentials.
 
@@ -295,7 +295,7 @@ Now that we have created the Azure Container Registry and authenticated our loca
 
 ---
 
-### Exercise 4: Create Custom Edge Module in C\#
+### Exercise 4: Create a Custom Edge Module in C\#
 
 In this exercise, you will create an Azure IoT Edge Solution that contains a custom Azure IoT Edge Module written in C#.
 
@@ -336,9 +336,9 @@ In this exercise, you will create an Azure IoT Edge Solution that contains a cus
 
 ---
 
-### Exercise 5: Configure Azure Container Registry
+### Exercise 5: Set the Azure Container Registry Credentials
 
-As of when this lab was written, the Visual Studio Code tools do not automatically perform the `docker login` when pushing container images to Azure Container Registry. The Azure Container Registry credentials need to be added to an **.env** environment variables file.
+As of when this lab was written, the Visual Studio Code Azure IoT Edge developer tools do not automatically perform the `docker login` when pushing container images to Azure Container Registry. The Azure Container Registry credentials need to be added to an **.env** environment variables file.
 
 1. Open the `.env` file within the root directory of the IoT Edge Solution. This file is where the username and password are configured for accessing your Docker registry.
 
@@ -359,7 +359,7 @@ As of when this lab was written, the Visual Studio Code tools do not automatical
 
 1. Within the `.env` file, replace the `<registry-username>` placeholder with the **Registry name** (_aka Username_) of the Azure Container Registry that was previously created, and replace the `<registry-password>` placeholder with the **password** for the Azure Container Registry.
 
-    > **Note**:  The Azure Container Registry **Username** and **password** values can be found by accessing the **Access keys** pane for the **Azure Container Registry** service within the Azure portal, if you did not record them earlier.
+    > **Note**:  The Azure Container Registry **Username** and **password** values can be found by accessing the **Access keys** pane for the **Azure Container Registry** service within the Azure portal if you did not record them earlier.
 
 ---
 
@@ -370,7 +370,7 @@ As of when this lab was written, the Visual Studio Code tools do not automatical
 The IoT Edge runtime must be installed on an Azure IoT Edge device before you can deploy a solution to the device. The runtime is responsible for:
 
 1. Downloading and starting container images on the IoT Edge device
-2. Version management, ensure when a new version of a container image is available it will be downloaded, the existing container will be stopped, and the new version started.
+2. Version management. It ensures that when a new module version is available it will be downloaded, the existing module stopped, and the new version started in its place.
 3. Routing messages between modules running on the IoT Edge device and to Azure IoT.
 4. It manages and monitors the health of solutions running on the device, including restarting crashed applications.
 5. Reports the health and state of the solution to Azure IoT for centralized management.
@@ -395,19 +395,21 @@ It acts as a local proxy for IoT Hub by exposing the same protocol endpoints as 
 
 It is responsible for instantiating modules, ensuring that they continue to run, and reporting the status of the modules back to IoT Hub.
 
-#### Modules
+#### System Modules
 
-1. Scroll through the `deployment.template.json` deployment manifest file, and notice the following sections within the `properties.desired` section of the `$edgeAgent` element:
+Scroll through the `deployment.template.json` deployment manifest file, and notice the following sections within the `properties.desired` section of the `$edgeAgent` element:
 
-    * `systemModules` - This defines Docker images to use for the `$edgeAgent` and `$edgeHub` system modules.
+* `systemModules` - This defines Docker images to use for the `$edgeAgent` and `$edgeHub` system modules.
 
-    * `modules` - This defines the various modules that will be deployed and run on the IoT Edge device (or a group of devices).
+* `modules` - This defines the various modules that will be deployed and run on the IoT Edge device (or a group of devices).
 
-1. Notice that within the `modules` section for the `$edgeAgent`, there are two modules defined:
+#### Application Modules
 
-    * `ObjectCountingModule`: This is the custom IoT Edge Module that is being created as part of this new IoT Edge Solution.
+Notice that within the `modules` section for the `$edgeAgent`, there are two modules defined:
 
-    * `SimulatedTemperatureSensor`: This defines the Simulated Temperature Sensor module to be deployed to the IoT Edge device.
+* `ObjectCountingModule`: This is the custom IoT Edge Module that is being created as part of this new IoT Edge Solution.
+
+* `SimulatedTemperatureSensor`: This defines the Simulated Temperature Sensor module to be deployed to the IoT Edge device.
 
 #### Routes
 
@@ -436,14 +438,20 @@ Notice the `$edgeHub` section of the deployment manifest. This section defines t
 
 ### Exercise 7: Understanding the Custom Module Template
 
-**//TODO: Add description Pipeline, What does the app do, starting point for building out a custom module..**
+In Exercise 4, you created an Azure IoT Edge module named _objectCountingModule_. This skeleton project can use as a starting point for your development project.
+
+Unmodified, the role of this module is to maintain a count of messages that are passed through it from the _SimulatedTemperatureSensor_ module.
+
+Often modules in an Azure IoT Edge solution will act as a pipeline. Messages are _routed_ from one module to another, and then finally _$upstream_ to Azure IoT.
+
+In this exercise, you will learn about the structure and the function of the _objectCountingModule_ module.
 
 
 1. Expand the `/modules/ObjectCountingModule` directory within the solution. Notice this directory contains the source code files for the new IoT Edge Module being developed.
 
 1. Open the `/modules/ObjectCountingModule/Program.cs` file. This file contains the template source code for the newly created custom IoT Edge Module. This code provides a starting point for creating custom IoT Edge Modules.
 
-1. Locate the `static async Task Init()` method. This method initializes the `ModuleClient` for handling messages sent to the module, and sets up the callback to receive messages. Read the code comments within the code for this method and notice what each section of code does.
+1. Locate the `static async Task Init()` method. This method initializes the `ModuleClient` for handling messages sent to the module and sets up the callback to receive messages. Read the code comments within the code for this method and notice what each section of code does.
 
 1. Locate the `static async Task<MessageResponse> PipeMessage(` method. This method is called whenever the module is sent a message from the EdgeHub. The current state of the source code within this method receives messages sent to this module and pipes them out to the module output, without any change. Read through the code within this method and notice what it does.
 
@@ -469,10 +477,9 @@ We have now created and configured a sample custom module. Next, we will debug i
 
 ### Exercise 8: Create an Azure IoT Edge Device
 
-**//TODO: Add description IoT Edge Simulator in place of having full iot edge runtime, more productive**
+Before we can send any messages from this solution we need to create an Azure IoT Edge device in Azure IoT Hub.
 
-
-In this exercise, you will build and run a custom IoT Edge Module solution using the IoT Edge Simulator from within Visual Studio Code.
+In this exercise, you will create an Azure IoT Edge device and copy the connection string that will be used to authenticate the solution with Azure IoT Hub.
 
 1. If necessary, log in to your Azure portal using your Azure account credentials.
 
@@ -480,7 +487,7 @@ In this exercise, you will build and run a custom IoT Edge Module solution using
 
 1. On your Resource group tile, click **AZ-220-HUB-_{YOUR-ID}_** to navigate to the Azure IoT Hub.
 
-1. In the left hand navigation area, under **Settings**, click **Shared access policies**.
+1. In the left-hand navigation area, under **Settings**, click **Shared access policies**.
 
 1. In the list of policies, click **iothubowner**.
 
@@ -506,6 +513,8 @@ In this exercise, you will build and run a custom IoT Edge Module solution using
 
 ### Exercise 9: Set up the Azure IoT Edge Simulator
 
+In the exercise, we will start the Azure IoT Edge Simulator and authenticate it with Azure IoT Hub.
+
 1. Change back to the IoT Edge solution in **Visual Studio Code**.
 
 1. Within the **Explorer** pane, right-click the `deployment.debug.template.json` debugging deployment manifest file in the root directory of the IoT Edge Solution.
@@ -518,7 +527,7 @@ In this exercise, you will build and run a custom IoT Edge Module solution using
 
 1. When prompted to **Select an IoT Edge Device**, select the **SimulatedDevice**.
 
-    > **Note**: If you get a **Unauthorized** error in the lower-right-hand corner, run the `Azure IoT Edge: Set IoT Hub Connection String` command from the Command Palette to reconfigure your simulator connection string, then `Azure IoT Edge: Setup IoT Edge Simulator` to try to select your device again.
+    > **Note**: If you get an **Unauthorized** error in the lower-right-hand corner, run the `Azure IoT Edge: Set IoT Hub Connection String` command from the Command Palette to reconfigure your simulator connection string, then `Azure IoT Edge: Setup IoT Edge Simulator` to try to select your device again.
 
 1. Within the **TERMINAL** window inside **Visual Studio Code**, you may be prompted for your Admin password on your local machine, particularly on Linux or macOS. Enter your password at the prompt and press **Enter**.
 
@@ -530,6 +539,8 @@ In this exercise, you will build and run a custom IoT Edge Module solution using
 
 ### Exercise 10: Build and run the IoT Edge Solution in the simulator
 
+In this exercise, you will build and run the custom IoT Edge Module solution using the IoT Edge Simulator from within Visual Studio Code.
+
 1. In Visual Studio Code, open the **Command Palette**, then search for **Azure IoT Edge: Set Default Target Platform for Edge Solution** and select it.
 
 1. Select the **amd64** target platform for the IoT Edge Solution. This target platform needs to be set to the hardware platform architecture of the IoT Edge Device.
@@ -538,7 +549,7 @@ In this exercise, you will build and run a custom IoT Edge Module solution using
 
 1. Right-click the `deployment.debug.template.json` debugging deployment manifest file in the root directory of the IoT Edge solution, and select the **Build and Run IoT Edge Solution in Simulator** option again.
 
-    > **Note**: If you are on Windows and see a message in in **TERMINAL** that reads, in part, `open //./pipe/docker_engine: The system cannot find the file specified.`, Docker is likely not started, or running correctly.  A Docker restart or even a full computer restart might be necessary.
+    > **Note**: If you are on Windows and see a message in the **TERMINAL** that reads, in part, `open //./pipe/docker_engine: The system cannot find the file specified.`, Docker is likely not started, or running correctly.  A Docker restart or even a full computer restart might be necessary.
 
     > **Note**: If you see a message that reads, in part, `image operating system "linux" cannot be used on this platform`, change your Docker configuration to support Linux containers.  (Ask your instructor for assistance if necessary.)
 
@@ -598,7 +609,11 @@ In this exercise, you will build and run a custom IoT Edge Module solution using
 
 ### Exercise 12: Attach the debugger to the IoT Edge solution
 
-1. Navigate to the Visual Studio Code **Debug** view, by clicking on the **Debug** icon on the left-side of the window.
+Visual Studio Code along with the Azure IoT Edge extension provides powerful tools for debugging modules that are running within the context of the Azure IoT Edge Simulator.
+
+In this exercise, you will learn how to attach the debugger and step through the module code.  
+
+1. Navigate to the Visual Studio Code **Debug** view, by clicking on the **Debug** icon on the left-hand side of the window.
 
 1. On the dropdown at the top of the **Debug** pane, select the **ObjectCountingModule Remote Debug (.NET Core)** option.
 
@@ -616,7 +631,7 @@ In this exercise, you will build and run a custom IoT Edge Module solution using
 
 1. To resume execution, click the **Continue** button, or press **F5**.
 
-1. Notice that each time the breakpoint it hit, execution stops.
+1. Notice that each time the breakpoint is hit, execution stops.
 
 1. To stop debugging, click the **Disconnect** button, or press **Shift + F5**.
 
@@ -636,7 +651,7 @@ You can also deploy and debug in Local Mode with the IoT Edge Simulator. Local M
 
 In this exercise, you will build and publish the custom IoT Edge Module into the Azure Container Registry (ACR) service. Once published to ACR, the custom module will then be made available to be deployed to any IoT Edge Device.
 
-1. From Visual Studio Code, change to the **Explorer** view, and open `.env` to ensure credentials for the Azure Container Registry have been set. Do this by opening the `.env` file located in the root directory of the IoT Edge Solution and reviewing it.  When set correctly, the `CONTAINER_REGISTRY_USERNAME_<acr-name>` key will have it's value set to the Azure Container Registry service name, and the `CONTAINER_REGISTRY_PASSWORD_<acr-name>` key will have it's value set to the **Password** for the Azure Container Registry service. Keep in mind, the `<acr-name>` placeholders in the keys will be set to the ACR service name (is all lowercase) automatically when the IoT Edge Solution was created.
+1. From Visual Studio Code, change to the **Explorer** view, and open `.env` to ensure credentials for the Azure Container Registry have been set. Do this by opening the `.env` file located in the root directory of the IoT Edge Solution and reviewing it.  When set correctly, the `CONTAINER_REGISTRY_USERNAME_<acr-name>` key will have its value set to the Azure Container Registry service name, and the `CONTAINER_REGISTRY_PASSWORD_<acr-name>` key will have its value set to the **Password** for the Azure Container Registry service. Keep in mind, the `<acr-name>` placeholders in the keys will be set to the ACR service name (is all lowercase) automatically when the IoT Edge Solution was created.
 
     The resulting `.env` file contents will look similar to the following:
 
@@ -653,19 +668,21 @@ In this exercise, you will build and publish the custom IoT Edge Module into the
 
 ### Exercise 14: Create an Azure IoT Edge Cloud Deployment
 
+Now that the Azure IoT Edge modules have been pushed to the Azure Container Registry it is time to learn how to configure and deploy these modules to new Azure IoT Edge devices.
+
 1. Open the Azure portal. If necessary, log in to your Azure portal using your Azure account credentials.
 
     If you have more than one Azure account, be sure that you are logged in with the account that is tied to the subscription that you will be using for this course.
 
 1. On your Resource group tile, click **AZ220ACR{YOUR-ID}** to navigate to your Azure Container Registry (ACR) service.
 
-1. On the left hand side, under the **Services** section, click on the **Repositories** link.
+1. On the left-hand side, under the **Services** section, click on the **Repositories** link.
 
 1. On the **Repositories** pane, notice that the `objectcountingmodule` repository now exists within the ACR service. This was created when the custom `ObjectCountingModule` IoT Edge Module was published from within Visual Studio Code.
 
     > **Note**: If the repository is not present, review the output from the Push action and ensure that you did not leave references to the `:5000` port number with your ACR references; you can do an **Edit**, **Find in Files** to confirm this.  You should also validate your credentials in the `.env` file and validate that you performed the `docker login` step earlier in the lab.
 
-1. Click on the **objectcountingmodule** repository navigate to the repository details.
+1. Click on the **objectcountingmodule** repository to navigate to the repository details.
 
 1. On the **Repository** details pane for the **objectcountingmodule** repository, notice in the list of tags there is a tag named `0.0.1-amd64`
 
