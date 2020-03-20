@@ -277,6 +277,8 @@ In this exercise, you will log the Docker client into Azure Container Registry s
     * **Username** - this is the admin username and will match the ACR name - **AZ220ACR{YOUR-ID}**
     * **password** - this is the admin password
 
+1. Ensure Docker is started and running on your computer.
+
 1. Once you have your authentication information, you can authenticate to the new registry for future Docker operations.  Open a local shell on your machine and run the following command:
 
     ```cmd/sh
@@ -365,9 +367,11 @@ As of when this lab was written, the Visual Studio Code Azure IoT Edge developer
 
 ### Exercise 6: How Azure IoT Edge deployments work
 
+You will be using the Azure IoT Edge Simulator for development purposes in this lab. But for deployments to test and production devices then the Azure IoT Edge Runtime must be installed.
+
 #### Azure IoT Edge Runtime
 
-The IoT Edge runtime must be installed on an Azure IoT Edge device before you can deploy a solution to the device. The runtime is responsible for:
+ The IoT Edge runtime must be installed on an Azure IoT Edge device before you can deploy a solution to the device. The runtime is responsible for:
 
 1. Downloading and starting container images on the IoT Edge device
 2. Version management. It ensures that when a new module version is available it will be downloaded, the existing module stopped, and the new version started in its place.
@@ -440,7 +444,7 @@ Notice the `$edgeHub` section of the deployment manifest. This section defines t
 
 In Exercise 4, you created an Azure IoT Edge module named _objectCountingModule_. This skeleton project can use as a starting point for your development project.
 
-Unmodified, the role of this module is to maintain a count of messages that are passed through it from the _SimulatedTemperatureSensor_ module.
+Unmodified, the role of this module is to maintain a running count of messages routed to it, each message is then enriched with the current count, then depending on routing rules either routed to the next module or upstream to Azure IoT Hub.
 
 Often modules in an Azure IoT Edge solution will act as a pipeline. Messages are _routed_ from one module to another, and then finally _$upstream_ to Azure IoT.
 
