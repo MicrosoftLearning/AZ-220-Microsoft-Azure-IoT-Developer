@@ -4,13 +4,13 @@ lab:
     module: 'Module 7: Azure IoT Edge Modules'
 ---
 
-# Develop, Deploy and debug a custom module on Azure IoT Edge with VS Code
+# Develop, Deploy, and debug a custom module on Azure IoT Edge with VS Code
 
 ## Lab Scenario
 
 Contoso's warehouse moves inventory that is ready to be packed for delivery on a conveyor belt.
 
-To make sure the correct amount of products have been packed, you will add a simple module to count objects detected on the belt by another object detection module (simulated) on the same IoT Edge device. We will show how to create a custom module that does object counting.
+To make sure the correct number of products have been packed, you will add a simple module to count objects detected on the belt by another object detection module (simulated) on the same IoT Edge device. We will show how to create a custom module that does object counting.
 
 ## What is a Custom Module
 
@@ -35,7 +35,7 @@ This lab includes the following prerequisites for the development machine (lab h
 
     > **Important**: Because of the removal of Azure Container Registry support for TLS before TLS version 1.2 on January 13, 2020, you must be on Docker Client 18.03.0 or later.
 
-## In This Lab
+## This Lab
 
 IoT Edge solution development in VS Code
 
