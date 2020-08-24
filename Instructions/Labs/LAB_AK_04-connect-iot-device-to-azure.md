@@ -705,6 +705,8 @@ In this task, you will use the Azure CLI to verify telemetry sent by the simulat
 
     _Be sure to replace the **{IoTHubName}** placeholder with the name of your Azure IoT Hub._
 
+    > **Note**: If you are missing extension runin bash ```az extension add --name azure-iot```
+
     > **Note**:  If you receive a message stating _"Dependency update required for IoT extension version"_ when running the Azure CLI command, then press `y` to accept the update and press `Enter`. This will allow the command to continue as expected.
 
     The `monitor-events` command (within the `az iot hub` Azure CLI module) offers the capability to monitor device telemetry and other message types sent to an Azure IoT Hub. This can be a very useful tool during code development, and the convenience of the command-line interface is also nice.
