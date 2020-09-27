@@ -39,17 +39,17 @@ namespace DownstreamDevice
                     humidity = currentHumidity
                 };
                 var messageString = JsonConvert.SerializeObject(telemetryDataPoint);
-                var message = new Message(Encoding.ASCII.GetBytes(messageString));
+                using (var message = new Message(Encoding.ASCII.GetBytes(messageString)))
+                {
+                    // Add a custom application property to the message.
+                    // An IoT hub can filter on these properties without access to the message body.
+                    message.Properties.Add("temperatureAlert", (currentTemperature > 30) ? "true" : "false");
 
-                // Add a custom application property to the message.
-                // An IoT hub can filter on these properties without access to the message body.
-                message.Properties.Add("temperatureAlert", (currentTemperature > 30) ? "true" : "false");
+                    Console.WriteLine("{0} > Sending message: {1}", DateTime.Now, messageString);
 
-                Console.WriteLine("{0} > Sending message: {1}", DateTime.Now, messageString);
-
-                // Send the telemetry message
-                await s_deviceClient.SendEventAsync(message);
-
+                    // Send the telemetry message
+                    await s_deviceClient.SendEventAsync(message);
+                } 
                 await Task.Delay(1000);
             }
         }
