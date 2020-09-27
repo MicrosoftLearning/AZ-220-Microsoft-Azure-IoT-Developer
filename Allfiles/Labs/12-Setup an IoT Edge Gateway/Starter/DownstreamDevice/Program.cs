@@ -84,16 +84,16 @@ namespace CaveDevice
                 var currentHumidity = sensor.ReadHumidity();
 
                 var messageString = CreateMessageString(currentTemperature, currentHumidity);
-                var message = new Message(Encoding.ASCII.GetBytes(messageString));
+                using (var message = new Message(Encoding.ASCII.GetBytes(messageString)))
+                {
+                    // Add a custom application property to the message.
+                    // An IoT hub can filter on these properties without access to the message body.
+                    message.Properties.Add("temperatureAlert", (currentTemperature > 30) ? "true" : "false");
 
-                // Add a custom application property to the message.
-                // An IoT hub can filter on these properties without access to the message body.
-                message.Properties.Add("temperatureAlert", (currentTemperature > 30) ? "true" : "false");
-
-                // Send the telemetry message
-                await deviceClient.SendEventAsync(message);
-                Console.WriteLine("{0} > Sending message: {1}", DateTime.Now, messageString);
-
+                    // Send the telemetry message
+                    await deviceClient.SendEventAsync(message);
+                    Console.WriteLine("{0} > Sending message: {1}", DateTime.Now, messageString);
+                }
                 await Task.Delay(1000);
             }
         }
