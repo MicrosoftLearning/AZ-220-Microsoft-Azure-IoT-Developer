@@ -991,7 +991,7 @@ The **DTDL Editor for Visual Studio Code** extension does a good job of validati
 1. To view the command-line options for the **DTDL Validator**, enter the following command:
 
     ```powershell
-    dotnet run -- --help
+    dotnet run --help
     ```
 
     The output will be similar to:
