@@ -1018,7 +1018,7 @@ The **DTDL Editor for Visual Studio Code** extension does a good job of validati
 1. To validate the model files in folder and sub-folders, enter the following command:
 
     ```powershell
-    dotnet run -- --directory {model-location}
+    dotnet run --directory {model-location}
     ```
 
     Replace the **{model-location}** token with the folder where the models are located - for example, the **Allfiles\Labs\19-Azure Digital Twins\Final\Models** folder.
@@ -1026,7 +1026,7 @@ The **DTDL Editor for Visual Studio Code** extension does a good job of validati
     Here is a sample output running against models included with this lab:
 
     ```cmd
-    dotnet run -- --directory "D:\D-Repos\AZ220-DeveloperLabs\Allfiles\Labs\19-Azure Digital Twins\Final\Models"
+    dotnet run --directory "D:\D-Repos\AZ220-DeveloperLabs\Allfiles\Labs\19-Azure Digital Twins\Final\Models"
     Simple DTDL Validator (dtdl parser library version 3.12.5.0)
     Validating *.json files in folder 'D:\D-Repos\AZ220-DeveloperLabs\Allfiles\Labs\19-Azure Digital Twins\Final\Models'.
     Recursive is set to True
@@ -1042,7 +1042,7 @@ The **DTDL Editor for Visual Studio Code** extension does a good job of validati
 1. To see an example of the output for a file that has errors, the **Allfiles\Labs\19-Azure Digital Twins\Final\Models** folder contains a file with errors - **CheeseCaveDeviceInterface.json.bad**. To run the **DTDL Validator** tool against this file, the **--extension** argument can be used like so:
 
     ```powershell
-    dotnet run -- --extension bad --directory "D:\Az220\Allfiles\Labs\19-Azure Digital Twins\Final\Models"
+    dotnet run --extension bad --directory "D:\Az220\Allfiles\Labs\19-Azure Digital Twins\Final\Models"
     ```
 
     The output for this will identify an error in the JSON:
@@ -1065,7 +1065,7 @@ The **DTDL Editor for Visual Studio Code** extension does a good job of validati
 1. Save the file and re-run the command:
 
     ```powershell
-    dotnet run -- --extension bad --directory "D:\Az220\Allfiles\Labs\19-Azure Digital Twins\Final\Models"
+    dotnet run --extension bad --directory "D:\Az220\Allfiles\Labs\19-Azure Digital Twins\Final\Models"
     ```
 
     This time, the validator reports an error indicating the **@context** is set to DTDL Version 1.
@@ -1075,7 +1075,7 @@ The **DTDL Editor for Visual Studio Code** extension does a good job of validati
 1. Save the file and re-run the command:
 
     ```powershell
-    dotnet run -- --extension bad --directory "D:\Az220\Allfiles\Labs\19-Azure Digital Twins\Final\Models"
+    dotnet run --extension bad --directory "D:\Az220\Allfiles\Labs\19-Azure Digital Twins\Final\Models"
     ```
 
     This time the validator reports that *Top-level element dtmi:com:contoso:digital_factory:cheese_factory:cheese_cave_device;1 does not have @type of Array, Command, CommandPayload, Component, Enum, EnumValue, Field, Interface, Map, MapKey, MapValue, Object, Property, Relationship, or Telemetry. Provide a @type in the set of allowable types.*
@@ -1085,7 +1085,7 @@ The **DTDL Editor for Visual Studio Code** extension does a good job of validati
 1. Save the file and re-run the command:
 
     ```powershell
-    dotnet run -- --extension bad --directory "D:\Az220\Allfiles\Labs\19-Azure Digital Twins\Final\Models"
+    dotnet run --extension bad --directory "D:\Az220\Allfiles\Labs\19-Azure Digital Twins\Final\Models"
     ```
 
     This time the validator reports 2 errors related to the **desiredTemperature** property - the **schema** is set to **byte** instead of **double**.
