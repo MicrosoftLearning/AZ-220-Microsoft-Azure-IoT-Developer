@@ -715,7 +715,7 @@ Now that the tempSensor module is deployed and running on the IoT Edge device, w
 
 1. Set the **Location** field to the same Azure Region used for Azure IoT Hub.
 
-1. Set the **Replication** field to **Locally-redundant storage (LRS)**.
+1. Set the **Redundancy** field to **Locally-redundant storage (LRS)**.
 
 1. Leave all other settings unchanged.
 
