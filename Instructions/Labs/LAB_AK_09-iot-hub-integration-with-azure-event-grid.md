@@ -167,11 +167,11 @@ In this exercise, you will create a new Azure Logic App that will be triggered v
 
 1. On the Azure portal menu, click **+ Create a resource**.
 
-1. On the **New** blade, in the **Search the Marketplace** box, enter **logic app**
+1. On the **Create a resource** blade, in the **Search services and marketplace** box, enter **logic app**
 
-1. In the search results, click **Logic App**.
+1. In the search results, click **Logic App (Consumption)**.
 
-1. On the **Logic App** blade, click **Create**.
+1. On the **Logic App (Consumption)** blade, click **Create**.
 
 1. On the **Basics** tab, under **Project details**, select the **Subscription** that you are using for this course.
 
@@ -213,7 +213,7 @@ In this exercise, you will create a new Azure Logic App that will be triggered v
 
     > **Note**: In the next step you will be adding the **DeviceCreated** sample event schema to the Request Body JSON Schema textbox. This sample, along with a couple of other event schema samples and some associated documentation, can be found at the following link for those who want to learn more: [Azure Event Grid event schema for IoT Hub](https://docs.microsoft.com/en-us/azure/event-grid/event-schema-iot-hub).
 
-1. Use a copy-and-paste operation to add the following sample JSON to the Request Body JSON Schema textbox, and then click **Done**.
+1. Use a copy-and-paste operation to add the following sample JSON to the **Enter or paste a sample JSON payload.** textbox, and then click **Done**.
 
     ```json
     [{
