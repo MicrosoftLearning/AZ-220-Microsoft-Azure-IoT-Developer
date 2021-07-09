@@ -759,7 +759,7 @@ In this exercise, you will use the Azure Portal user interface for Azure IoT Hub
 
 1. On the **Set modules** blade, under **Iot Edge Modules**, click **Runtime Settings**.
 
-1. On the **Runtime Settings** pane, locate the **Store and forward configuration - time to live (seconds)** field.
+1. On the **Runtime Settings** pane, click the **Edge Hub** tab, then locate the **Store and forward configuration - time to live (seconds)** field.
 
 1. In the **Store and forward configuration - time to live (seconds)** textbox, enter **1209600**
 
