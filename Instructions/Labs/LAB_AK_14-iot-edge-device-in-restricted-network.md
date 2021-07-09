@@ -826,7 +826,7 @@ In this exercise, you will use the Azure Portal user interface for Azure IoT Hub
 
 1. Under **Environment Variables**, in the **Value** textbox, enter **/iotedge/storage/**
 
-1. At the bottom of the **Runtime Settings** pane, click **Save**.
+1. At the bottom of the **Runtime Settings** pane, click **Apply**.
 
 1. On the **Set modules on device** blade, click **Review + create**.
 
